@@ -11,16 +11,20 @@
 |
 */
 
-Route::get('/', 'WelcomeController@index');
-
-Route::get('/home', 'HomeController@index');
-
-Route::get('hello', function()
+Route::get('/', 'AppController@index');  
+Route::get('iniciarTest', function()
 {
-    return 'Hello World';
+   return redirect('/');
 });
+Route::post('iniciarTest', 'AppController@iniciarTest');
+Route::get('siguienteTest', function()
+{
+   return redirect('/');
+});
+Route::post('siguienteTest', 'AppController@siguienteTest');
 
-Route::controllers([
-	'auth' => 'Auth\AuthController',
-	'password' => 'Auth\PasswordController',
-]);
+/*AJAX*/
+Route::post('resultado', 'AppController@resultado');
+Route::post('conf_operaciones', 'AppController@conf_operaciones');
+
+ 
