@@ -4,10 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+/**
+ * Description of AppController
+ * 
+ * Esta clase de tipo Controller contiene la lógica del flujo de la aplicación, y sus peticiones, 
+ * debido que es una aplicación pequeña se creó un solo controlador
+ * 
+ * 
+ * @author wmhr28
+ */
 class AppController extends Controller {
     /*
       |--------------------------------------------------------------------------
-      | App Controller
+      | AppController
       |--------------------------------------------------------------------------
       |
      */
@@ -27,7 +36,7 @@ class AppController extends Controller {
      * @return Response view index.blade.php 
      * @category ControllerViews
      */
-    public function index() { 
+    public function index() {
         return view('index');
     }
 
@@ -85,16 +94,14 @@ class AppController extends Controller {
                             </div>';
         $boton_tpl = '<div class="form-group"> 
             <form method="POST" action="siguienteTest" accept-charset="UTF-8"><input name="_token" type="hidden" value="' . $token . '">
-                                <input class="btn btn-primary form-control" type="submit" value="Continuar">
+                                <input class="btn btn-primary form-control" type="submit" id="siguiente" value="Continuar">
                                   </form>
                       </div>';
         $result = '';
         if (!empty($ops)) {
-
             foreach ($ops as $item) {
                 $entrada = $item['value'];
                 $resp = \App\Libraries\Operaciones::input($entrada, $matriz);
-                //   return  response()->json( $resp);
                 $input = $resp['input'];
                 $salida = '';
                 if ($resp['result']) {
@@ -103,7 +110,6 @@ class AppController extends Controller {
                             $salida = $resp['resp']['value'];
                         }
                     } else {
-                        // return  response()->json( $resp);
                         if (!$resp['resp']['es_valido']['result']) {
 
                             $salida = json_encode($resp['resp']['es_valido']['errors']);
@@ -115,10 +121,15 @@ class AppController extends Controller {
                 $result.=sprintf($fila_tpl, $entrada, $salida);
             }
         }
-
         return $result . $boton_tpl;
     }
 
+    /**
+     * Dirigue el flujo de las pruebas realizadas, en caso de que complete la cantidad de pruebas regresa al inicio.
+     *
+     * @return Response view/redirect
+     * @category ControllerViews
+     */
     public function siguienteTest() {
         $T = session('T');
 

@@ -8,67 +8,74 @@
 
         <meta name="csrf-token" content="{{ csrf_token() }}" />
         <script type="text/javascript">
-        $(document).ready(function() {
-            $("#div_operaciones").hide();
-            $("#div_resultados").hide();
-            $('#continuar').on('click', function(e) {
-
+            $(document).ready(function() {
+                $("#N").focus();
+                $("#div_operaciones").hide();
                 $("#div_resultados").hide();
-                var m = $('#M').val();
-                var n = $('#N').val();
+                $('#continuar').on('click', function(e) {
 
-                if (n === '') {
-                    alert('Ingrese el Tamaño de la matriz');
-                    return;
-                }
-                if (n >= 100 && n <= 1) {
-                    alert('El valor del campo Tamaño de la matriz esta fuera de rango');
-                    return;
-                }
-                if (m === '') {
-                    alert('Ingrese el Número de operaciones');
-                    return;
-                }
-                if (m >= 1000 && m <= 1) {
-                    alert('El valor del campo Número de operaciones esta fuera de rango');
-                    return;
-                }
 
-                $('#myModal').modal("show");
+                    $("#div_resultados").hide();
+                    var m = $('#M').val();
+                    var n = $('#N').val();
 
-                var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-                $.ajax({
-                    type: "POST",
-                    url: 'conf_operaciones',
-                    data: {M: m, "_token": CSRF_TOKEN},
-                    success: function(msg) {
-                        $("#operaciones").html(msg);
-                        $('#myModal').modal("hide");
-                        $("#div_operaciones").show();
-                        $("#id_op_1").focus();
+                    if (n === '') {
+                        alert('Ingrese el Tamaño de la matriz');
+                        return;
                     }
-                });
-
-            });
-            $('#calcular').on('click', function(e) {
-                var n = $('#N').val();
-                var ops = $('input[name="ops[]"]').serializeArray();
-                $('#myModal').modal("show");
-
-                var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-                $.ajax({
-                    type: "POST",
-                    url: 'resultado',
-                    data: {N: n, "ops ": ops, "_token": CSRF_TOKEN},
-                    success: function(msg) {
-                        $("#resultados").html(msg);
-                        $('#myModal').modal("hide");
-                        $("#div_resultados").show();
-                        $("#calcular").focus();
+                    if (n >= 100 && n <= 1) {
+                        alert('El valor del campo Tamaño de la matriz esta fuera de rango');
+                        return;
                     }
+                    if (m === '') {
+                        alert('Ingrese el Número de operaciones');
+                        return;
+                    }
+                    if (m >= 1000 && m <= 1) {
+                        alert('El valor del campo Número de operaciones esta fuera de rango');
+                        return;
+                    }
+
+                    $('#myModal').modal("show");
+
+                    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+                    $.ajax({
+                        type: "POST",
+                        url: 'conf_operaciones',
+                        data: {M: m, "_token": CSRF_TOKEN},
+                        success: function(msg) {
+                            $("#M").prop("disabled", true);
+                            $("#N").prop("disabled", true);
+                            $("#continuar").hide();
+                            $("#operaciones").html(msg);
+                            $('#myModal').modal("hide");
+                            $("#div_operaciones").show();
+                            $("#id_op_1").focus();
+                        }
+                    });
+
+                });
+                $('#calcular').on('click', function(e) {
+                    var n = $('#N').val();
+                    var ops = $('input[name="ops[]"]').serializeArray();
+                    $('#myModal').modal("show");
+
+                    var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+                    $.ajax({
+                        type: "POST",
+                        url: 'resultado',
+                        data: {N: n, "ops ": ops, "_token": CSRF_TOKEN},
+                        success: function(msg) {
+                            $('input[name="ops[]"]').prop("disabled", true);
+                            $("#calcular").hide();
+                            $("#resultados").html(msg);
+                            $('#myModal').modal("hide");
+                            $("#div_resultados").show();
+                            $("#siguiente").focus();
+                        }
+                    });
                 });
             });
-        });
         </script>
 
     </head>
@@ -120,7 +127,7 @@
 
                                 </div>
                                 <div class="form-group">                                
-                                    {!! Form::button('Calcular', ['class'=>'btn btn-primary form-control','id'=>'calcular'])  !!}
+                                    {!! Form::button('Continuar', ['class'=>'btn btn-primary form-control','id'=>'calcular'])  !!}
                                 </div>
                             </div>
 
