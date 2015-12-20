@@ -2,7 +2,7 @@
     <head>
         <title>Cube Summation</title>
         <link href="{{ asset('/css/app.css') }}" rel="stylesheet">        
-        <link rel="stylesheet" href="{{ asset('/bootstrap/bootstrap.min.css') }}">
+        
         <script src="{{ asset('/jquery/jquery.min.js') }}"></script>
         <script src="{{ asset('/bootstrap/bootstrap.min.js') }}"></script>
 
@@ -105,7 +105,7 @@
 
                         <div class="panel-body">
 
-                            <h2>Configuraci&oacute;n inicial</h2> 
+                            <h3>Configuraci&oacute;n inicial</h3> 
 
 
                             <div class="form-group">
@@ -122,7 +122,7 @@
 
                             <div id="div_operaciones">
                                 <hr>
-                                <h2>Operaciones</h2> 
+                                <h3>Operaciones</h3> 
                                 <div id="operaciones">
 
                                 </div>
@@ -133,7 +133,7 @@
 
                             <div id="div_resultados">
                                 <hr>
-                                <h2>Resultados</h2> 
+                                <h3>Resultados</h3> 
                                 <div id="resultados">
 
                                 </div>

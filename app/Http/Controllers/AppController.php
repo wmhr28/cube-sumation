@@ -125,7 +125,7 @@ class AppController extends Controller {
     }
 
     /**
-     * Dirigue el flujo de las pruebas realizadas, en caso de que complete la cantidad de pruebas regresa al inicio.
+     * Controla el flujo de las pruebas realizadas, en caso de que complete la cantidad de pruebas regresa al inicio.
      *
      * @return Response view/redirect
      * @category ControllerViews

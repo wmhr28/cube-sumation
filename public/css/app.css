@@ -6231,3 +6231,7 @@ label,
 .checkbox label {
   font-weight: 300;
 }
+.panel-heading{
+    font-size: 24px;
+    font-weight: bold;
+}
