@@ -3,15 +3,16 @@
 class IntegralesTest extends TestCase {
 
     /**
-     * A basic route app test.
+     * Tests Integrales de la App.
      *
      * @return void
      */
     public function testPeticionesPeticionesValidas() {
+        //Se procede a verificar las peticiones GET inicial
         $this->call('GET', '/');
         $this->assertResponseOk();
 
-
+        // se verifica las redirecciones
         $redirectToIndex = array('iniciarTest', 'siguienteTest');
         foreach ($redirectToIndex as $item) {
             $this->call('GET', "/$item");
@@ -36,27 +37,37 @@ class IntegralesTest extends TestCase {
     }
 
     public function testCubeSumation() {
-        /* 4 5
+        /* 
+         * DATOS DE PRUEBA
+         
+          4 5
           UPDATE 2 2 2 4
           QUERY 1 1 1 3 3 3
           UPDATE 1 1 1 23
           QUERY 2 2 2 4 4 4
-          QUERY 1 1 1 3 3 3 */
+          QUERY 1 1 1 3 3 3 
+
+          Resultados en operaciones QUERY
+          4
+          4
+          7
+          */
         $N = 4;
-        $result1=4;
-        $result2=4;
-        $result3=27;
+        $result1 = 4;
+        $result2 = 4;
+        $result3 = 27;
+        //Test desde clase operaciones
         $matriz = new App\Libraries\Matriz($N);
         $operaciones = new App\Libraries\Operaciones();
         $operaciones->input('UPDATE 2 2 2 4', $matriz);
         $resp = $operaciones->input('QUERY 1 1 1 3 3 3', $matriz);
         $this->assertEquals($result1, $resp['resp']['value']);
-        
+
         $operaciones->input('UPDATE 1 1 1 23', $matriz);
         $resp = $operaciones->input('QUERY 2 2 2 4 4 4', $matriz);
         $this->assertEquals($result2, $resp['resp']['value']);
-        
-        
+
+
         $resp = $operaciones->input('QUERY 1 1 1 3 3 3', $matriz);
         $this->assertEquals($result3, $resp['resp']['value']);
 
