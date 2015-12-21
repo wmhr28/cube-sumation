@@ -12,13 +12,17 @@
  */
 
 Route::get('/', 'AppController@index');
-Route::get('iniciarTest', function() {
-    return redirect('/');
-});
+
+$redirectToIndex = array('iniciarTest','siguienteTest');
+
+foreach ($redirectToIndex as $item) {
+    Route::get($item, function() {
+        return redirect('/');
+    });
+}
+
+/* POST */
 Route::post('iniciarTest', 'AppController@iniciarTest');
-Route::get('siguienteTest', function() {
-    return redirect('/');
-});
 Route::post('siguienteTest', 'AppController@siguienteTest');
 
 /* AJAX */

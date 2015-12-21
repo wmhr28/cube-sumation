@@ -136,7 +136,7 @@ class AppController extends Controller {
         $T_actual = session('T_actual');
         $T_actual++;
         session(['T_actual' => $T_actual]);
-
+        
         if ($T_actual <= $T) {
             return view('test');
         } else {
